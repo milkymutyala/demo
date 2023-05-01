@@ -1,0 +1,53 @@
+#include <stdio.h>
+int fr[8], gen[4], dupfr[11], recfr[11], rem[4], flen=8, glen=4, tlen=11;
+void remain(int frame[]){
+    int k, k1;
+    for(int k=0; k<flen; k++){
+        if(frame[k] == 1){
+            k1 = k;
+            for(int i=0, j=k; i<glen; i++, j++){
+                rem[i] = frame[j] ^ gen[i];
+            }
+            for(int i=0; i<glen; i++){
+                frame[k1] = rem[i];
+                k1++;
+            }
+        }
+    }
+}
+
+int main(){
+    printf("Enter frame of size 8:\n");
+    for(int i=0; i<flen; i++){
+        scanf("%d", &fr[i]);
+        dupfr[i] = fr[i];
+        recfr[i] = fr[i];
+    }
+    printf("Enter generator of size 4:\n");
+    for(int i=0; i<glen; i++){
+        scanf("%d", &gen[i]);
+    }
+    
+    for(int i=flen; i<tlen; i++)
+        dupfr[i] = 0;
+        
+    remain(dupfr);
+    
+    for(int i=flen, j=1; j<glen; i++, j++)
+        recfr[i] = rem[j];
+        
+    remain(recfr);
+    
+    int flag = 0;
+    
+    for(int i=0; i<4; i++){
+        if(rem[i] != 0)
+            flag++;
+    }
+    
+    if(flag == 0)
+        printf("Frame received correctly");
+    else
+        printf("Frame received wrongly");
+    return 0;
+}
