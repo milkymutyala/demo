@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include<string.h>
+
+int main(){
+    char a[100], b[100];
+    printf("Enter the string:\n");
+    scanf("%s", a);
+    b[0] = 'e';
+    b[1] = 's';
+    b[2] = 'c';
+    int i, j;
+    i = 0, j= 3;
+    while(i < strlen(a)){
+        if(a[i] == 'e' && a[i+1] == 's' && a[i+2] == 'c'){
+            b[j] = 'e';
+            b[j+1] = 's';
+            b[j+2] = 'c';
+            j = j+3;
+        }
+        b[j] = a[i];
+        j++;
+        i++;
+    }
+    b[j] = 'e';
+    b[j+1] = 's';
+    b[j+2] = 'c';
+    b[j+3] = '\0';
+    
+    printf("After bit stuffing:\n");
+    printf("%s", b);
+    return 0;
+}
